@@ -1,0 +1,125 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon SoulLink Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="top-header-inner">
+      <div class="brand-block">
+        <span class="pokeball-icon" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong>Pokemon SoulLink</strong>
+          <span>Challenge Tracker</span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="app-shell">
+    <section id="cloudSyncCard" class="card cloud-sync-card">
+      <h3>Online Sync (Mehrspieler)</h3>
+      <p class="muted">Verbinde alle Spieler mit derselben Supabase-URL, demselben Anon-Key und demselben Raum-Code.</p>
+      <div class="cloud-sync-grid">
+        <label>
+          Supabase URL
+          <input id="supabaseUrlInput" type="text" placeholder="https://deinprojekt.supabase.co" autocomplete="off" />
+        </label>
+        <label>
+          Supabase Anon Key
+          <input id="supabaseAnonKeyInput" type="text" placeholder="eyJhbGciOi..." autocomplete="off" />
+        </label>
+        <label>
+          Raum-Code
+          <input id="cloudRoomCodeInput" type="text" placeholder="soullink-team-a" autocomplete="off" />
+        </label>
+      </div>
+      <div class="cloud-sync-actions">
+        <button id="connectCloudBtn" class="primary" type="button">Verbinden</button>
+        <button id="disconnectCloudBtn" type="button">Trennen</button>
+      </div>
+      <p id="cloudSyncStatus" class="muted">Nicht verbunden.</p>
+    </section>
+
+    <section id="setupView" class="card">
+      <h1>Pokemon SoulLink Tracker</h1>
+      <p>Stelle ein, wie viele Spieler bei der Challenge mitmachen.</p>
+
+      <div class="choice-row" role="radiogroup" aria-label="Spieleranzahl">
+        <label class="choice">
+          <input type="radio" name="playerCount" value="2" checked />
+          <span>2 Spieler</span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="playerCount" value="3" />
+          <span>3 Spieler</span>
+        </label>
+      </div>
+
+      <div id="nameInputs" class="name-grid"></div>
+
+      <button id="startChallengeBtn" class="primary">Challenge starten</button>
+    </section>
+
+    <section id="appView" class="hidden">
+      <header class="card header-grid">
+        <div>
+          <h2 id="runTitle">Aktueller Run: #1</h2>
+          <p id="runHint" class="muted">Du bearbeitest den aktuellen Run.</p>
+        </div>
+
+        <div class="header-actions">
+          <button id="nextRunBtn" class="primary">Naechsten Run starten</button>
+          <button id="resetBtn" class="danger">Challenge zuruecksetzen</button>
+        </div>
+
+        <div class="run-selector">
+          <label for="runSelect">Run ansehen:</label>
+          <select id="runSelect"></select>
+          <button id="openRunBtn">Anzeigen</button>
+          <button id="backToCurrentBtn">Zum aktuellen Run</button>
+        </div>
+      </header>
+
+      <section class="card link-panel">
+        <h3>Gefundene Links im angezeigten Run</h3>
+        <div id="linkEntryInputs" class="link-entry-grid"></div>
+        <div class="link-entry-actions">
+          <button id="addLinkBtn">Link hinzufuegen</button>
+        </div>
+        <p id="dbStatus" class="muted">Pokemon-Datenbank wird vorbereitet...</p>
+        <p id="inputHint" class="muted"></p>
+        <ul id="foundPokemonList" class="pokemon-list"></ul>
+      </section>
+
+      <section id="analysisPanel" class="card analysis-panel">
+        <div class="analysis-panel-header">
+          <h3>Typen-Analyse (Live)</h3>
+          <button id="analysisToggleBtn" type="button" class="analysis-toggle-btn" aria-expanded="true">Minimieren</button>
+        </div>
+        <div id="analysisBody" class="analysis-body">
+          <p class="muted">Suche ein Pokemon und sehe sofort Schwaechen und Staerken.</p>
+          <div class="pokemon-input-row">
+            <div class="search-wrap" data-analysis-search-wrap="1">
+              <input id="analysisInput" type="text" placeholder="Pokemon fuer Analyse suchen" autocomplete="off" />
+              <div id="analysisSuggestions" class="suggestion-list hidden"></div>
+            </div>
+          </div>
+          <p id="analysisHint" class="muted"></p>
+          <div id="analysisResult" class="analysis-empty">Noch kein Pokemon ausgewaehlt.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Spieler Counter</h3>
+        <div id="playerCounters" class="counter-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
